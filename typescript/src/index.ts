@@ -41,7 +41,9 @@ export function agruparPorParidad(nums: number[]): {
   pares: number[];
   impares: number[];
 } {
-  throw new Error("No implementado");
+    const pares = nums.filter( x => x%2===0);
+    const impares = nums.filter( x => x%2!==0);
+    return { pares, impares };
 }
 
 /**
@@ -54,7 +56,9 @@ export function agruparPorParidad(nums: number[]): {
  * Ejemplo: fibonacci(10) === 55
  */
 export function fibonacci(n: number): number {
-  throw new Error("No implementado");
+  if (n === 0) return 0;
+  else if (n === 1) return 1;
+  else return fibonacci(n - 1) + fibonacci(n - 2);
 }
 
 /**
@@ -75,8 +79,12 @@ export function validarContrasena(pass: string): {
   valida: boolean;
   errores: string[];
 } {
-  throw new Error("No implementado");
-}
+      const e1 = pass.length < 8 ? ["Debe tener al menos 8 caracteres"] : [];
+      const e2 = !/[A-Z]/.test(pass) ? ["Debe contener al menos una letra mayúscula"] : [];
+      const e3 = !/\d/.test(pass) ? ["Debe contener al menos un dígito"] : [];
+      const errores =  e1.concat(e2,e3);
+      return { valida: errores.length === 0, errores: errores };
+    };
 
 /**
  * TS-05: Construye el nombre completo formateado. PURA, sin estado.
