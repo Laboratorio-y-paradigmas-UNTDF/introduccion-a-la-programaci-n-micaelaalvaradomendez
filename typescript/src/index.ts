@@ -100,7 +100,7 @@ export function componerNombre(
   apellido: string,
   titulo?: string
 ): string {
-  throw new Error("No implementado");
+  return titulo ? `${titulo} ${nombre} ${apellido}` : `${nombre} ${apellido}`;
 }
 
 // ─── GRUPO 2: Inmutabilidad ───────────────────────────────────────────────
