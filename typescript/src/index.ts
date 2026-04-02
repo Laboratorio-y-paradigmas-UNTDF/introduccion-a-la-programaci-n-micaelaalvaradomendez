@@ -26,7 +26,8 @@
  *          calcularConImpuesto(99.99, 10) === 109.99
  */
 export function calcularConImpuesto(base: number, tasa: number): number {
-  throw new Error("No implementado");
+  const resultado = base * (1 + tasa / 100);
+  return Math.round(resultado * 100) / 100; 
 }
 
 /**
