@@ -42,9 +42,9 @@ export function agruparPorParidad(nums: number[]): {
   pares: number[];
   impares: number[];
 } {
-    const pares = nums.filter( x => x%2===0);
-    const impares = nums.filter( x => x%2!==0);
-    return { pares, impares };
+  const pares = nums.filter(x => x % 2 === 0);
+  const impares = nums.filter(x => x % 2 !== 0);
+  return { pares, impares };
 }
 
 /**
@@ -80,12 +80,12 @@ export function validarContrasena(pass: string): {
   valida: boolean;
   errores: string[];
 } {
-      const e1 = pass.length < 8 ? ["Debe tener al menos 8 caracteres"] : [];
-      const e2 = !/[A-Z]/.test(pass) ? ["Debe contener al menos una letra mayúscula"] : [];
-      const e3 = !/\d/.test(pass) ? ["Debe contener al menos un dígito"] : [];
-      const errores =  e1.concat(e2,e3);
-      return { valida: errores.length === 0, errores: errores };
-    };
+  const e1 = pass.length < 8 ? ["Debe tener al menos 8 caracteres"] : [];
+  const e2 = !/[A-Z]/.test(pass) ? ["Debe contener al menos una letra mayúscula"] : [];
+  const e3 = !/\d/.test(pass) ? ["Debe contener al menos un dígito"] : [];
+  const errores = e1.concat(e2, e3);
+  return { valida: errores.length === 0, errores };
+}
 
 /**
  * TS-05: Construye el nombre completo formateado. PURA, sin estado.
@@ -126,7 +126,7 @@ export function agregarElemento<T>(arr: readonly T[], elemento: T): T[] {
  */
 export function eliminarPorIndice<T>(arr: readonly T[], indice: number): T[] {
   if (indice < 0 || indice >= arr.length) return [...arr];
-  return arr.filter((_,i) => i !== indice);
+  return arr.filter((_, i) => i !== indice);
 }
 
 /**
@@ -142,7 +142,7 @@ export function actualizarPrecio(
   producto: { nombre: string; precio: number; [key: string]: unknown },
   nuevoPrecio: number
 ): { nombre: string; precio: number; [key: string]: unknown } {
-  return { ...producto, precio: nuevoPrecio};
+  return { ...producto, precio: nuevoPrecio };
 }
 
 /**
@@ -154,7 +154,7 @@ export function actualizarPrecio(
  *          El array original NO debe cambiar.
  */
 export function ordenarSinMutar(nums: readonly number[]): number[] {
-  return [...nums].sort((a,b) => a - b);
+  return [...nums].sort((a, b) => a - b);
 }
 
 /**
@@ -171,9 +171,9 @@ export function aplicarDescuentoRegistros(
   productos: readonly { nombre: string; precio: number }[],
   porcentaje: number
 ): { nombre: string; precio: number }[] {
-  return productos.map ( p => ({
+  return productos.map(p => ({
     ...p,
-    precio: Math.round(p.precio * (1- porcentaje / 100) * 100) / 100
+    precio: Math.round(p.precio * (1 - porcentaje / 100) * 100) / 100,
   }));
 }
 

@@ -22,7 +22,7 @@
    (contar-pares [1 3 5])       => 0
    (contar-pares [])            => 0"
   [coll]
-  (throw (ex-info "No implementado" {:fn "contar-pares"})))
+  (count (filter even? coll)))
 
 (defn suma-lista
   "CLJ-02: Suma todos los elementos de coll usando reduce.
