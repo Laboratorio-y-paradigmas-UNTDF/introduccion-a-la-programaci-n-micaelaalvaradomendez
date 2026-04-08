@@ -45,7 +45,6 @@
    (invertir-lista [])      => ()"
   [coll]
   (reduce (fn [acc x] (cons x acc)) '() coll)
-  
 )
 
 (defn maximo-lista
@@ -56,7 +55,8 @@
    (maximo-lista [3 1 4 1 5 9 2 6]) => 9
    (maximo-lista [-5 -1 -3])        => -1"
   [coll]
-  (throw (ex-info "No implementado" {:fn "maximo-lista"})))
+  (reduce (fn [acc x] (if (> x acc) x acc)) (first coll) (rest coll))
+)
 
 (defn rango-lista
   "CLJ-05: Retorna {:min <min> :max <max> :rango <max-min>}.
@@ -65,7 +65,13 @@
 
    (rango-lista [3 1 4 1 5 9]) => {:min 1 :max 9 :rango 8}"
   [coll]
-  (throw (ex-info "No implementado" {:fn "rango-lista"})))
+  (let [resultado (reduce (fn [acc x]
+    {:min (min (:min acc) x)
+    :max (max (:max acc) x)})
+    {:min (first coll) :max (first coll)}
+    (rest coll))]
+  (assoc resultado :rango (- (:max resultado) (:min resultado))))
+)
 
 ;; ─── GRUPO 2: map / filter / reduce ─────────────────────────────
 
