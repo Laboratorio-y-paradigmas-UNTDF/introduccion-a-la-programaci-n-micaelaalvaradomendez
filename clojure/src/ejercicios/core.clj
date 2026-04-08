@@ -81,7 +81,8 @@
    (doblar [1 2 3]) => (2 4 6)
    (doblar [])      => ()"
   [coll]
-  (throw (ex-info "No implementado" {:fn "doblar"})))
+  (map #(* % 2) coll)  
+)
 
 (defn solo-positivos
   "CLJ-07: Retorna solo los elementos estrictamente mayores a 0. Usar filter.
@@ -89,7 +90,8 @@
    (solo-positivos [-2 -1 0 1 2 3]) => (1 2 3)
    (solo-positivos [-1 -2])         => ()"
   [coll]
-  (throw (ex-info "No implementado" {:fn "solo-positivos"})))
+  (filter pos? coll)  
+)
 
 (defn producto-lista
   "CLJ-08: Producto de todos los elementos usando reduce.
@@ -98,7 +100,8 @@
    (producto-lista [1 2 3 4 5]) => 120
    (producto-lista [7])         => 7"
   [coll]
-  (throw (ex-info "No implementado" {:fn "producto-lista"})))
+  (reduce * coll)
+)
 
 (defn palabras-mayusculas
   "CLJ-09: Convierte cada string a mayúsculas usando map y clojure.string/upper-case.
@@ -106,7 +109,8 @@
    (palabras-mayusculas [\"hola\" \"mundo\"]) => (\"HOLA\" \"MUNDO\")
    (palabras-mayusculas [])               => ()"
   [palabras]
-  (throw (ex-info "No implementado" {:fn "palabras-mayusculas"})))
+  (map str/upper-case palabras)
+)
 
 (defn suma-cuadrados-pares
   "CLJ-10: Pipeline: filtrar pares → elevar al cuadrado → sumar.
@@ -115,7 +119,9 @@
    (suma-cuadrados-pares [1 2 3 4 5]) => 4+16 = 20
    (suma-cuadrados-pares [1 3 5])     => 0"
   [coll]
-  (throw (ex-info "No implementado" {:fn "suma-cuadrados-pares"})))
+  (->> coll
+    (filter even?) (map #(* % %)) (reduce + 0))  
+)
 
 (defn aplanar-listas
   "CLJ-11: Aplana lista de listas con mapcat.
@@ -124,7 +130,8 @@
    (aplanar-listas [[1 2] [3 4] [5]]) => (1 2 3 4 5)
    (aplanar-listas [[] [1] []])       => (1)"
   [listas]
-  (throw (ex-info "No implementado" {:fn "aplanar-listas"})))
+  (mapcat identity listas)
+)
 
 ;; ─── GRUPO 3: Funciones de Orden Superior ────────────────────────
 
