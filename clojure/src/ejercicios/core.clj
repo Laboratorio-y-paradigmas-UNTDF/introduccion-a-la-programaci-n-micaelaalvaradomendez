@@ -22,7 +22,8 @@
    (contar-pares [1 3 5])       => 0
    (contar-pares [])            => 0"
   [coll]
-  (count (filter even? coll)))
+  (count (filter even? coll))
+)
 
 (defn suma-lista
   "CLJ-02: Suma todos los elementos de coll usando reduce.
@@ -32,7 +33,8 @@
    (suma-lista [1 2 3 4 5]) => 15
    (suma-lista [])          => 0"
   [coll]
-  (throw (ex-info "No implementado" {:fn "suma-lista"})))
+  (reduce + 0 coll)
+)
 
 (defn invertir-lista
   "CLJ-03: Invierte coll usando reduce.
@@ -42,7 +44,9 @@
    (invertir-lista [1 2 3]) => (3 2 1)
    (invertir-lista [])      => ()"
   [coll]
-  (throw (ex-info "No implementado" {:fn "invertir-lista"})))
+  (reduce (fn [acc x] (cons x acc)) '() coll)
+  
+)
 
 (defn maximo-lista
   "CLJ-04: Retorna el máximo de coll usando reduce.
