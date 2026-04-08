@@ -143,7 +143,10 @@
    (mi-map #(* % 2) [1 2 3 4]) => (2 4 6 8)
    (mi-map inc [])              => ()"
   [f coll]
-  (throw (ex-info "No implementado" {:fn "mi-map"})))
+  (if (empty? coll)
+    '() (cons (f (first coll)) (mi-map f (rest coll)))
+  )
+)
 
 (defn mi-filter
   "CLJ-13: Implementar filter propio usando RECURSIÓN. SIN usar filter.
@@ -153,7 +156,13 @@
    (mi-filter pos? [-1 0 1 2])   => (1 2)
    (mi-filter even? [])          => ()"
   [pred coll]
-  (throw (ex-info "No implementado" {:fn "mi-filter"})))
+  (if (empty? coll)
+    ' () (if (pred (first coll))
+      (cons (first coll) (mi-filter pred (rest coll)))
+      (mi-filter pred (rest coll))
+    )
+  )  
+)
 
 (defn componer
   "CLJ-14: Composición de dos funciones.
@@ -163,7 +172,8 @@
    ((componer inc #(* % 2)) 3) => 7  ;; doble(3)=6, luego inc(6)=7
    ((componer str inc) 5)      => \"6\""
   [f g]
-  (throw (ex-info "No implementado" {:fn "componer"})))
+  (fn [x] (f (g x)))
+)
 
 (defn aplicar-n-veces
   "CLJ-15: Aplica f exactamente n veces sobre x usando recursión.
@@ -172,7 +182,8 @@
    (aplicar-n-veces #(* % 2) 4 1)   => 16 ;; 1→2→4→8→16
    (aplicar-n-veces inc 0 42)       => 42 ;; 0 veces, retorna x"
   [f n x]
-  (throw (ex-info "No implementado" {:fn "aplicar-n-veces"})))
+  (if (zero? n) x (aplicar-n-veces f (dec n) (f x)))
+)
 
 (defn contar-con
   "CLJ-16: Cuenta cuántos elementos de coll satisfacen pred.
@@ -181,7 +192,8 @@
    (contar-con pos? [-1 -2 -3])     => 0
    (contar-con any? [])             => 0"
   [pred coll]
-  (throw (ex-info "No implementado" {:fn "contar-con"})))
+  (count (filter pred coll))
+)
 
 ;; ─── GRUPO 4: Recursión ──────────────────────────────────────────
 
@@ -194,7 +206,8 @@
    (factorial 5) => 120
    (factorial 10) => 3628800"
   [n]
-  (throw (ex-info "No implementado" {:fn "factorial"})))
+  
+)
 
 (defn fibonacci-clj
   "CLJ-18: Fibonacci recursivo.
