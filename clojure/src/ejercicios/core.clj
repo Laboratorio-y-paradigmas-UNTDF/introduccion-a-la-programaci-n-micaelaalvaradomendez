@@ -206,7 +206,7 @@
    (factorial 5) => 120
    (factorial 10) => 3628800"
   [n]
-  
+  (if (zero? n) 1 (* n (factorial (dec n))))
 )
 
 (defn fibonacci-clj
@@ -218,7 +218,10 @@
    (fibonacci-clj 10) => 55
    (fibonacci-clj 15) => 610"
   [n]
-  (throw (ex-info "No implementado" {:fn "fibonacci-clj"})))
+  (loop [i n, a 0, b 1]
+    (if (zero? i) a (recur (dec i) b (+ a b)))
+  )
+)
 
 (defn aplanar-profundo
   "CLJ-19: Aplana una estructura anidada arbitrariamente profunda con recursión.
@@ -228,7 +231,15 @@
    (aplanar-profundo [[1 2] [3 [4 [5]]]]) => (1 2 3 4 5)
    (aplanar-profundo [])                  => ()"
   [coll]
-  (throw (ex-info "No implementado" {:fn "aplanar-profundo"})))
+  (if (empty? coll) '()
+    (let [cabeza (first coll) cola (rest coll)]
+      (if (sequential? cabeza)
+        (concat (aplanar-profundo cabeza) (aplanar-profundo cola))
+        (cons cabeza (aplanar-profundo cola))
+      )
+    )
+  )  
+)
 
 (defn potencia
   "CLJ-20: Eleva base a exp (entero no negativo) con recursión.
@@ -240,7 +251,8 @@
    (potencia 3 3)   => 27
    (potencia 5 0)   => 1"
   [base exp]
-  (throw (ex-info "No implementado" {:fn "potencia"})))
+  (if (zero? exp) 1 (* base (potencia base (dec exp))))
+)
 
 ;; ─── GRUPO 5: Colecciones y mapas ────────────────────────────────
 
@@ -252,7 +264,8 @@
    (frecuencias-manual [:a :b :a]) => {:a 2, :b 1}
    (frecuencias-manual [])         => {}"
   [coll]
-  (throw (ex-info "No implementado" {:fn "frecuencias-manual"})))
+  (reduce (fn [acc x] (assoc acc x (inc (get acc x 0)))) {} coll)
+)
 
 (defn agrupar-por-tipo
   "CLJ-22: Agrupa vector de mapas {:nombre :tipo} por valor de :tipo.
@@ -265,7 +278,11 @@
    => {\"X\" [{:nombre \"A\" :tipo \"X\"} {:nombre \"B\" :tipo \"X\"}],
        \"Y\" [{:nombre \"C\" :tipo \"Y\"}]}"
   [registros]
-  (throw (ex-info "No implementado" {:fn "agrupar-por-tipo"})))
+  (reduce (fn [acc r]
+    (let [tipo (:tipo r) lista-actual (get acc tipo [])]
+    (assoc acc tipo (conj lista-actual r)))) {} registros
+  )  
+)
 
 (defn aplicar-descuento
   "CLJ-23: Aplica exactamente 10% de descuento a :precio de cada mapa.
@@ -276,7 +293,8 @@
                        {:nombre \"B\" :precio 200}])
    => ({:nombre \"A\" :precio 90.0} {:nombre \"B\" :precio 180.0})"
   [productos]
-  (throw (ex-info "No implementado" {:fn "aplicar-descuento"})))
+  (map (fn [p] (assoc p :precio (* (:precio p) 0.9))) productos)
+)
 
 (defn zip-listas
   "CLJ-24: Combina dos listas en pares usando map.
@@ -286,7 +304,8 @@
    (zip-listas [1 2 3] [:a :b :c]) => ([1 :a] [2 :b] [3 :c])
    (zip-listas [] [])              => ()"
   [lista1 lista2]
-  (throw (ex-info "No implementado" {:fn "zip-listas"})))
+  (map vector lista1 lista2)
+)
 
 (defn pipeline-estudiantes
   "CLJ-25: Pipeline funcional completo.
@@ -303,4 +322,7 @@
 
    (pipeline-estudiantes [{:nombre \"Beto\" :nota 3}]) => []"
   [estudiantes]
-  (throw (ex-info "No implementado" {:fn "pipeline-estudiantes"})))
+  (->> estudiantes (filter #(>= (:nota %) 6))
+    (sort-by :nota >) (map :nombre) vec
+  )
+)
