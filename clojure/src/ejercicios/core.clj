@@ -45,6 +45,7 @@
    (invertir-lista [])      => ()"
   [coll]
   (reduce (fn [acc x] (cons x acc)) '() coll)
+  ;; (reduce conj '() coll)
 )
 
 (defn maximo-lista
@@ -56,6 +57,7 @@
    (maximo-lista [-5 -1 -3])        => -1"
   [coll]
   (reduce (fn [acc x] (if (> x acc) x acc)) (first coll) (rest coll))
+  ;; (reduce (fn [acc x] (if (> x acc) x acc)) (first coll) coll)
 )
 
 (defn rango-lista
@@ -65,12 +67,25 @@
 
    (rango-lista [3 1 4 1 5 9]) => {:min 1 :max 9 :rango 8}"
   [coll]
-  (let [resultado (reduce (fn [acc x]
-    {:min (min (:min acc) x)
-    :max (max (:max acc) x)})
-    {:min (first coll) :max (first coll)}
-    (rest coll))]
-  (assoc resultado :rango (- (:max resultado) (:min resultado))))
+
+  (let [
+    resultado
+    (reduce )
+  ])
+
+  ;; (let [resultado (reduce (fn [acc x]
+  ;;   {:min (min (:min acc) x)
+  ;;   :max (max (:max acc) x)})
+  ;;   {:min (first coll) :max (first coll)}
+  ;;   (rest coll))]
+  ;; (assoc resultado :rango (- (:max resultado) (:min resultado))))
+  
+  ;;(let [primer-elemento (first coll)
+  ;; stats (reduce (fn [acc x]
+  ;;    {:min (min (:min acc) x)
+  ;;    :max (max (:max acc) x)})
+  ;; {:min primer-elemento :max primer-elemento} coll)]
+  ;;(assoc stats :rango (- (max stats) (:min stats))))
 )
 
 ;; ─── GRUPO 2: map / filter / reduce ─────────────────────────────
@@ -81,7 +96,8 @@
    (doblar [1 2 3]) => (2 4 6)
    (doblar [])      => ()"
   [coll]
-  (map #(* % 2) coll)  
+  (map #(* % 2) coll) 
+  ;;(map (fn [x] (* x 2)) coll) 
 )
 
 (defn solo-positivos
@@ -91,6 +107,7 @@
    (solo-positivos [-1 -2])         => ()"
   [coll]
   (filter pos? coll)  
+  ;;(filter (fn [x] (> x 0) col))
 )
 
 (defn producto-lista
@@ -101,6 +118,7 @@
    (producto-lista [7])         => 7"
   [coll]
   (reduce * coll)
+  ;; (reduce * 1 coll)
 )
 
 (defn palabras-mayusculas
@@ -110,6 +128,7 @@
    (palabras-mayusculas [])               => ()"
   [palabras]
   (map str/upper-case palabras)
+  ;;(map clojure.string/upper-case palabras)
 )
 
 (defn suma-cuadrados-pares
