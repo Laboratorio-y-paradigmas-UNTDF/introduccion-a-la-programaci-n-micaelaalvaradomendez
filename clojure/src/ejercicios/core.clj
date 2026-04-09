@@ -67,18 +67,12 @@
 
    (rango-lista [3 1 4 1 5 9]) => {:min 1 :max 9 :rango 8}"
   [coll]
-
-  (let [
-    resultado
-    (reduce )
-  ])
-
-  ;; (let [resultado (reduce (fn [acc x]
-  ;;   {:min (min (:min acc) x)
-  ;;   :max (max (:max acc) x)})
-  ;;   {:min (first coll) :max (first coll)}
-  ;;   (rest coll))]
-  ;; (assoc resultado :rango (- (:max resultado) (:min resultado))))
+   (let [resultado (reduce (fn [acc x]
+     {:min (min (:min acc) x)
+     :max (max (:max acc) x)})
+     {:min (first coll) :max (first coll)}
+     (rest coll))]
+   (assoc resultado :rango (- (:max resultado) (:min resultado))))
   
   ;;(let [primer-elemento (first coll)
   ;; stats (reduce (fn [acc x]
