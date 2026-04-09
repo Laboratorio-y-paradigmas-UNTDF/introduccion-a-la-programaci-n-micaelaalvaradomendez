@@ -170,11 +170,14 @@
    (mi-filter even? [])          => ()"
   [pred coll]
   (if (empty? coll)
-    ' () (if (pred (first coll))
+     '() (if (pred (first coll))
       (cons (first coll) (mi-filter pred (rest coll)))
       (mi-filter pred (rest coll))
     )
-  )  
+  )
+  ;;(if (empty? coll) () 
+  ;;(let [primero (first coll) resto (rest coll)]
+  ;;(if (pred primero)(cons primero (mi-filter pred resto)) (mi-filter pred restp))))  
 )
 
 (defn componer
