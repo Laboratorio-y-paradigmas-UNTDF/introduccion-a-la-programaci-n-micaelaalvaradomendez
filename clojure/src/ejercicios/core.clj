@@ -23,6 +23,7 @@
    (contar-pares [])            => 0"
   [coll]
   (count (filter even? coll))
+  ;; (reduce (fn [acc x] (if (even? x) (inc acc) acc)) 0 coll)
 )
 
 (defn suma-lista
@@ -144,6 +145,7 @@
    (aplanar-listas [[] [1] []])       => (1)"
   [listas]
   (mapcat identity listas)
+  ;;(reduce (fn [acc lista](concat acc lista))[] listas)
 )
 
 ;; ─── GRUPO 3: Funciones de Orden Superior ────────────────────────
@@ -189,6 +191,7 @@
    ((componer str inc) 5)      => \"6\""
   [f g]
   (fn [x] (f (g x)))
+  ;;(comp f g)
 )
 
 (defn aplicar-n-veces
@@ -199,6 +202,7 @@
    (aplicar-n-veces inc 0 42)       => 42 ;; 0 veces, retorna x"
   [f n x]
   (if (zero? n) x (aplicar-n-veces f (dec n) (f x)))
+  ;; (loop [i n, resultado x](if (zero? i) resultado)(recur (dec i)(f resultado)))
 )
 
 (defn contar-con
@@ -209,6 +213,7 @@
    (contar-con any? [])             => 0"
   [pred coll]
   (count (filter pred coll))
+  ;;(->> coll (filter pred) (count))
 )
 
 ;; ─── GRUPO 4: Recursión ──────────────────────────────────────────
@@ -223,6 +228,7 @@
    (factorial 10) => 3628800"
   [n]
   (if (zero? n) 1 (* n (factorial (dec n))))
+  ;;(loop [i n, res 1] (if (zero? i) res (recur (dec i)(*res i))))
 )
 
 (defn fibonacci-clj
@@ -237,6 +243,8 @@
   (loop [i n, a 0, b 1]
     (if (zero? i) a (recur (dec i) b (+ a b)))
   )
+  ;;(cond (zero? n) 0 (= n 1) 1
+  ;;  :else (+ (fibonacci-clj (dec n))(fibonacci-clj (- n 2))))
 )
 
 (defn aplanar-profundo
@@ -254,7 +262,10 @@
         (cons cabeza (aplanar-profundo cola))
       )
     )
-  )  
+  )
+  ;;(cond(empty? coll) '() (sequential? (first coll))
+  ;;  (concat (aplanar-profundo (first coll)) (aplanar-profundo (rest coll)))
+  ;;  :else (cons (first coll)(aplanar-profundo (rest coll)))) 
 )
 
 (defn potencia
@@ -268,6 +279,7 @@
    (potencia 5 0)   => 1"
   [base exp]
   (if (zero? exp) 1 (* base (potencia base (dec exp))))
+  ;;(loop [e exp, res 1] (if (zero? e) res (recur (dec e) (* res base))))
 )
 
 ;; ─── GRUPO 5: Colecciones y mapas ────────────────────────────────
@@ -297,7 +309,8 @@
   (reduce (fn [acc r]
     (let [tipo (:tipo r) lista-actual (get acc tipo [])]
     (assoc acc tipo (conj lista-actual r)))) {} registros
-  )  
+  )
+  ;;(reduce (fn [acc r] (update acc (:tipo r) (fnil conj []) r)) {} registros)  
 )
 
 (defn aplicar-descuento
@@ -341,4 +354,6 @@
   (->> estudiantes (filter #(>= (:nota %) 6))
     (sort-by :nota >) (map :nombre) vec
   )
+  ;; (vec (map :nombre (sort-by :nota > (filter #(>= (:nota %) 6) estudiantes))))
+
 )
